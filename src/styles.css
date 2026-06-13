@@ -1,0 +1,222 @@
+:root {
+  --bg: #f6f4ef;
+  --panel: #ffffff;
+  --text: #17202a;
+  --muted: #5b6472;
+  --border: #d7d4cc;
+  --accent: #0f766e;
+  --accent-strong: #115e59;
+  --warning-bg: #fff7d6;
+  --warning-text: #5f4700;
+  --error-bg: #ffe4e6;
+  --error-text: #7f1d1d;
+  --success-bg: #dcfce7;
+  --success-text: #14532d;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111318;
+    --panel: #191d24;
+    --text: #f3f5f7;
+    --muted: #abb3c0;
+    --border: #333a45;
+    --accent: #2dd4bf;
+    --accent-strong: #5eead4;
+    --warning-bg: #312a12;
+    --warning-text: #fde68a;
+    --error-bg: #35171c;
+    --error-text: #fecdd3;
+    --success-bg: #132d1f;
+    --success-text: #bbf7d0;
+    color-scheme: dark;
+  }
+}
+
+html[data-blank-theme="dark"] {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --text: #f0f3f6;
+  --muted: #9da7b3;
+  --border: #30363d;
+  color-scheme: dark;
+}
+
+html[data-blank-theme="light"] {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --text: #111827;
+  --muted: #5b6472;
+  --border: #d4d7dd;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  min-height: 38px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--accent-strong);
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.newtab-body.blank {
+  background: var(--bg);
+}
+
+.status-panel {
+  width: min(520px, calc(100vw - 32px));
+  margin: 12vh auto 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 24px;
+  box-shadow: 0 18px 60px rgb(0 0 0 / 12%);
+}
+
+.status-panel h1,
+.options-shell h1 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.status-panel p,
+.options-shell p {
+  color: var(--muted);
+}
+
+.status-actions,
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.options-body {
+  padding: 32px 16px;
+}
+
+.options-shell {
+  width: min(720px, 100%);
+  margin: 0 auto;
+}
+
+.settings-form {
+  display: grid;
+  gap: 18px;
+  margin-top: 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 22px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field span,
+.field-group h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+input[type="text"],
+input:not([type]),
+select {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  padding: 8px 10px;
+}
+
+.field-group {
+  display: grid;
+  gap: 10px;
+  border: 0;
+  padding: 0;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+}
+
+.choice input {
+  width: 16px;
+  height: 16px;
+}
+
+.messages {
+  min-height: 36px;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: transparent;
+  color: var(--muted);
+}
+
+.messages[data-tone="warning"] {
+  background: var(--warning-bg);
+  color: var(--warning-text);
+}
+
+.messages[data-tone="error"] {
+  background: var(--error-bg);
+  color: var(--error-text);
+}
+
+.messages[data-tone="success"] {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.messages p {
+  margin: 0;
+  color: inherit;
+}
+
+.messages p + p {
+  margin-top: 6px;
+}
+
