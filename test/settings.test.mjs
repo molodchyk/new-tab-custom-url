@@ -7,13 +7,33 @@ import vm from "node:vm";
 async function loadSettingsModule() {
   const source = await readFile(path.join(process.cwd(), "src/settings.js"), "utf8");
   const style = new Map();
+  const storage = {
+    local: {},
+    sync: {}
+  };
   const context = {
     URL,
     chrome: {
       runtime: { id: "extension-id" },
       storage: {
-        local: {},
-        sync: {}
+        local: {
+          get: async (keys) => Object.fromEntries(keys.map((key) => [key, storage.local[key]]).filter((entry) => entry[1] !== undefined)),
+          set: async (values) => {
+            Object.assign(storage.local, values);
+          },
+          remove: async (keys) => {
+            for (const key of keys) delete storage.local[key];
+          }
+        },
+        sync: {
+          get: async (keys) => Object.fromEntries(keys.map((key) => [key, storage.sync[key]]).filter((entry) => entry[1] !== undefined)),
+          set: async (values) => {
+            Object.assign(storage.sync, values);
+          },
+          remove: async (keys) => {
+            for (const key of keys) delete storage.sync[key];
+          }
+        }
       }
     },
     document: {
@@ -33,7 +53,7 @@ async function loadSettingsModule() {
   };
 
   vm.runInNewContext(source, context, { filename: "settings.js" });
-  return { settings: context.window.NewTabSettings, document: context.document, style };
+  return { settings: context.window.NewTabSettings, document: context.document, storage, style };
 }
 
 test("normalizes bare domains to https URLs", async () => {
@@ -89,4 +109,24 @@ test("applies custom background color", async () => {
   assert.equal(document.documentElement.dataset.blankTheme, "dark");
   assert.equal(document.documentElement.dataset.customBg, "true");
   assert.equal(style.get("--custom-bg"), "#112233");
+});
+
+test("loads synced settings in a fresh local profile", async () => {
+  const { settings, storage } = await loadSettingsModule();
+
+  storage.sync = {
+    targetUrl: "https://example.com/",
+    focusMode: "address-bar",
+    blankTheme: "dark",
+    customBackgroundEnabled: true,
+    customBackgroundColor: "#123456",
+    syncEnabled: true
+  };
+
+  const loaded = await settings.load();
+
+  assert.equal(loaded.targetUrl, "https://example.com/");
+  assert.equal(loaded.focusMode, "address-bar");
+  assert.equal(loaded.syncEnabled, true);
+  assert.equal(storage.local.targetUrl, "https://example.com/");
 });

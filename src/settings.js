@@ -140,18 +140,32 @@
 
   async function load() {
     const local = await getFrom("local");
-    const syncEnabled = Boolean(local.syncEnabled);
-
-    if (!syncEnabled) {
-      return normalizeSettings({ ...DEFAULTS, ...local, syncEnabled });
-    }
+    let synced = {};
 
     try {
-      const synced = await getFrom("sync");
-      return normalizeSettings({ ...DEFAULTS, ...local, ...synced, syncEnabled });
+      synced = await getFrom("sync");
     } catch (_error) {
+      synced = {};
+    }
+
+    const syncEnabled = Boolean(local.syncEnabled || synced.syncEnabled);
+
+    if (!syncEnabled) {
       return normalizeSettings({ ...DEFAULTS, ...local, syncEnabled: false });
     }
+
+    const normalized = normalizeSettings({ ...DEFAULTS, ...local, ...synced, syncEnabled: true });
+
+    try {
+      const writeBack = chrome.storage.local.set(normalized);
+      if (writeBack && typeof writeBack.catch === "function") {
+        writeBack.catch(() => {});
+      }
+    } catch (_error) {
+      // Loading should not fail just because the local cache could not be refreshed.
+    }
+
+    return normalized;
   }
 
   async function save(nextSettings) {
