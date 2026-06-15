@@ -50,6 +50,14 @@ npm run package
 The validation script checks the manifest, referenced files, permission scope,
 and accidental remote-call patterns in extension scripts.
 
+## Chrome Web Store Automation
+
+StorePilot-ready files live under:
+
+- `store-listing/chrome-web-store/listing/en.md`
+- `store-listing/chrome-web-store/media/icon-128.png`
+- `docs/chrome-web-store-privacy-form.md`
+
 ## Privacy
 
 See [`PRIVACY.md`](PRIVACY.md). In short: no analytics, no ads, no remote
