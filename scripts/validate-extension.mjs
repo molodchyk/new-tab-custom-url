@@ -8,11 +8,19 @@ const manifestPath = path.join(root, "manifest.json");
 const sourceFiles = [
   "src/settings.js",
   "src/newtab.js",
-  "src/options.js"
+  "src/options.js",
+  "src/popup.js"
 ];
 const htmlFiles = [
   "src/newtab.html",
-  "src/options.html"
+  "src/options.html",
+  "src/popup.html"
+];
+const iconFiles = [
+  "assets/icon-16.png",
+  "assets/icon-32.png",
+  "assets/icon-48.png",
+  "assets/icon-128.png"
 ];
 
 const failures = [];
@@ -48,6 +56,10 @@ if (manifest.host_permissions && manifest.host_permissions.length > 0) {
   fail("Host permissions should not be requested.");
 }
 
+if (manifest.background) {
+  fail("Background scripts are out of scope unless a concrete feature requires one.");
+}
+
 if (manifest.content_scripts && manifest.content_scripts.length > 0) {
   fail("Content scripts are out of scope for this utility.");
 }
@@ -62,6 +74,16 @@ if (!newTabPath) {
 
 if (manifest.options_page) {
   assertExists(manifest.options_page);
+}
+
+if (!manifest.action?.default_popup) {
+  fail("Toolbar action must expose the settings popup.");
+} else {
+  assertExists(manifest.action.default_popup);
+}
+
+for (const relativePath of iconFiles) {
+  assertExists(relativePath);
 }
 
 for (const relativePath of sourceFiles) {

@@ -4,8 +4,10 @@
   "private": true,
   "description": "Chrome extension to set the new tab page to a custom URL or local file.",
   "scripts": {
+    "generate:icons": "node scripts/generate-icons.mjs",
+    "package": "node scripts/package-extension.mjs",
+    "test": "node --test",
     "validate": "node scripts/validate-extension.mjs"
   },
   "license": "MIT"
 }
-

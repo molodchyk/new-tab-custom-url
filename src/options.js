@@ -4,7 +4,11 @@
   const form = document.getElementById("options-form");
   const targetUrlInput = document.getElementById("target-url");
   const blankThemeSelect = document.getElementById("blank-theme");
+  const customBackgroundEnabledInput = document.getElementById("custom-background-enabled");
+  const customBackgroundColorInput = document.getElementById("custom-background-color");
   const syncEnabledInput = document.getElementById("sync-enabled");
+  const fileAccessStatus = document.getElementById("file-access-status");
+  const incognitoAccessStatus = document.getElementById("incognito-access-status");
   const messages = document.getElementById("messages");
   const resetButton = document.getElementById("reset");
   const detailsButton = document.getElementById("details");
@@ -39,9 +43,19 @@
         targetUrl: normalized.url,
         focusMode: selectedFocusMode(),
         blankTheme: blankThemeSelect.value,
+        customBackgroundEnabled: customBackgroundEnabledInput.checked,
+        customBackgroundColor: customBackgroundColorInput.value,
         syncEnabled: syncEnabledInput.checked
       }
     };
+  }
+
+  function applyCurrentTheme() {
+    NewTabSettings.applyBlankTheme(
+      blankThemeSelect.value,
+      customBackgroundEnabledInput.checked,
+      customBackgroundColorInput.value
+    );
   }
 
   function showUrlFeedback() {
@@ -65,10 +79,13 @@
     const settings = await NewTabSettings.load();
     targetUrlInput.value = settings.targetUrl;
     blankThemeSelect.value = settings.blankTheme;
+    customBackgroundEnabledInput.checked = settings.customBackgroundEnabled;
+    customBackgroundColorInput.value = settings.customBackgroundColor;
     syncEnabledInput.checked = settings.syncEnabled;
     setFocusMode(settings.focusMode);
-    NewTabSettings.applyBlankTheme(settings.blankTheme);
+    applyCurrentTheme();
     showUrlFeedback();
+    refreshAccessStatus();
   }
 
   async function saveSettings(event) {
@@ -83,7 +100,7 @@
 
     await NewTabSettings.save(settings);
     targetUrlInput.value = settings.targetUrl;
-    NewTabSettings.applyBlankTheme(settings.blankTheme);
+    applyCurrentTheme();
 
     const lines = ["Saved."].concat(normalized.warnings);
     setMessage(lines, normalized.warnings.length > 0 ? "warning" : "success");
@@ -93,18 +110,43 @@
     const settings = await NewTabSettings.reset();
     targetUrlInput.value = settings.targetUrl;
     blankThemeSelect.value = settings.blankTheme;
+    customBackgroundEnabledInput.checked = settings.customBackgroundEnabled;
+    customBackgroundColorInput.value = settings.customBackgroundColor;
     syncEnabledInput.checked = settings.syncEnabled;
     setFocusMode(settings.focusMode);
-    NewTabSettings.applyBlankTheme(settings.blankTheme);
+    applyCurrentTheme();
     setMessage(["Reset to about:blank."], "success");
+    refreshAccessStatus();
   }
 
   function openDetails() {
-    chrome.tabs.create({ url: NewTabSettings.extensionDetailsUrl() });
+    if (chrome.tabs && chrome.tabs.create) {
+      chrome.tabs.create({ url: NewTabSettings.extensionDetailsUrl() });
+      return;
+    }
+
+    window.open(NewTabSettings.extensionDetailsUrl(), "_blank", "noopener");
+  }
+
+  async function refreshAccessStatus() {
+    const fileAccessAllowed = await NewTabSettings.isFileAccessAllowed();
+    const incognitoAllowed = await NewTabSettings.isIncognitoAccessAllowed();
+
+    fileAccessStatus.textContent = fileAccessAllowed
+      ? "File URLs: allowed"
+      : "File URLs: off. Enable in Extension Details for local files.";
+    fileAccessStatus.dataset.state = fileAccessAllowed ? "ok" : "warn";
+
+    incognitoAccessStatus.textContent = incognitoAllowed
+      ? "Incognito: allowed"
+      : "Incognito: off. Enable in Extension Details for private windows.";
+    incognitoAccessStatus.dataset.state = incognitoAllowed ? "ok" : "warn";
   }
 
   targetUrlInput.addEventListener("input", showUrlFeedback);
-  blankThemeSelect.addEventListener("change", () => NewTabSettings.applyBlankTheme(blankThemeSelect.value));
+  blankThemeSelect.addEventListener("change", applyCurrentTheme);
+  customBackgroundEnabledInput.addEventListener("change", applyCurrentTheme);
+  customBackgroundColorInput.addEventListener("input", applyCurrentTheme);
   form.addEventListener("submit", saveSettings);
   resetButton.addEventListener("click", resetSettings);
   detailsButton.addEventListener("click", openDetails);
@@ -113,4 +155,3 @@
     setMessage([error && error.message ? error.message : "Could not load settings."], "error");
   });
 })();
-

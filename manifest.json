@@ -4,6 +4,20 @@
   "short_name": "Custom New Tab",
   "version": "0.1.0",
   "description": "Set your new tab to a custom URL, local file, browser page, or quiet blank page.",
+  "icons": {
+    "16": "assets/icon-16.png",
+    "32": "assets/icon-32.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "action": {
+    "default_title": "New Tab: Custom URL",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "assets/icon-16.png",
+      "32": "assets/icon-32.png"
+    }
+  },
   "permissions": [
     "storage"
   ],
@@ -12,4 +26,3 @@
   },
   "options_page": "src/options.html"
 }
-

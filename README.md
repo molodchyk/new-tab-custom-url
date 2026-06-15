@@ -21,6 +21,8 @@ This first version focuses on:
 - local file guidance for `file://` URLs
 - a focus mode toggle for address-bar workflow versus page workflow
 - dark-aware blank/intermediate page behavior
+- optional custom background color for blank and intermediate redirect screens
+- toolbar popup access for quick URL changes
 - clear reset controls before uninstall
 
 ## Load Unpacked
@@ -39,7 +41,10 @@ For local files, Chrome requires the separate extension details toggle named
 This repo has no runtime dependencies.
 
 ```bash
+npm run generate:icons
 npm run validate
+npm test
+npm run package
 ```
 
 The validation script checks the manifest, referenced files, permission scope,
@@ -49,4 +54,3 @@ and accidental remote-call patterns in extension scripts.
 
 See [`PRIVACY.md`](PRIVACY.md). In short: no analytics, no ads, no remote
 network calls, and no data sale.
-

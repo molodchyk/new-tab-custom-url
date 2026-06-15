@@ -30,7 +30,9 @@ Features:
 - address-bar workflow mode
 - page-focus mode
 - dark, light, or system blank page
+- custom blank/redirect background color
 - optional Chrome sync
+- toolbar popup for quick changes
 - reset button
 - no tracking
 
@@ -40,4 +42,3 @@ Notes:
 - Incognito use requires Chrome's separate "Allow in incognito" toggle.
 - Browser-controlled address-bar behavior can vary across Chrome and Chromium
   versions.
-

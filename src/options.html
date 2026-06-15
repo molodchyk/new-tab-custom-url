@@ -42,9 +42,25 @@
         </label>
 
         <label class="choice">
+          <input id="custom-background-enabled" type="checkbox" name="customBackgroundEnabled">
+          <span>Use custom blank/redirect background</span>
+        </label>
+
+        <label class="field compact-field">
+          <span>Background color</span>
+          <input id="custom-background-color" type="color" name="customBackgroundColor" value="#0d1117">
+        </label>
+
+        <label class="choice">
           <input id="sync-enabled" type="checkbox" name="syncEnabled">
           <span>Sync settings with Chrome profile</span>
         </label>
+
+        <section class="field-group status-grid" aria-labelledby="access-label">
+          <h2 id="access-label">Browser Access</h2>
+          <p id="file-access-status" class="status-line">Checking file access...</p>
+          <p id="incognito-access-status" class="status-line">Checking incognito access...</p>
+        </section>
 
         <div id="messages" class="messages" aria-live="polite"></div>
 
@@ -60,4 +76,3 @@
     <script src="options.js"></script>
   </body>
 </html>
-

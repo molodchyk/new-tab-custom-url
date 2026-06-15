@@ -52,6 +52,10 @@ html[data-blank-theme="light"] {
   color-scheme: light;
 }
 
+html[data-custom-bg="true"] {
+  --bg: var(--custom-bg);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -158,6 +162,7 @@ button.secondary {
 }
 
 input[type="text"],
+input[type="color"],
 input:not([type]),
 select {
   width: 100%;
@@ -167,6 +172,15 @@ select {
   background: var(--bg);
   color: var(--text);
   padding: 8px 10px;
+}
+
+input[type="color"] {
+  max-width: 88px;
+  padding: 4px;
+}
+
+.compact-field {
+  align-items: start;
 }
 
 .field-group {
@@ -220,3 +234,43 @@ select {
   margin-top: 6px;
 }
 
+.status-grid {
+  gap: 8px;
+}
+
+.status-line {
+  margin: 0;
+  border-left: 3px solid var(--border);
+  padding-left: 10px;
+  color: var(--muted);
+}
+
+.status-line[data-state="ok"] {
+  border-left-color: var(--accent);
+  color: var(--text);
+}
+
+.status-line[data-state="warn"] {
+  border-left-color: #d97706;
+}
+
+.popup-body {
+  width: 360px;
+  min-height: 260px;
+  padding: 14px;
+}
+
+.popup-shell {
+  display: grid;
+  gap: 14px;
+}
+
+.popup-shell h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.popup-form {
+  display: grid;
+  gap: 12px;
+}

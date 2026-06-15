@@ -5,6 +5,8 @@
     targetUrl: "about:blank",
     focusMode: "page",
     blankTheme: "system",
+    customBackgroundEnabled: false,
+    customBackgroundColor: "#0d1117",
     syncEnabled: false
   });
 
@@ -27,6 +29,29 @@
 
   function normalizeFileSlashes(value) {
     return value.replace(/\\/g, "/");
+  }
+
+  function isHexColor(value) {
+    return /^#[0-9a-f]{6}$/i.test(String(value || ""));
+  }
+
+  function normalizeSettings(nextSettings) {
+    const next = { ...DEFAULTS, ...nextSettings };
+    const normalizedUrl = normalizeUrl(next.targetUrl);
+    const focusMode = next.focusMode === "address-bar" ? "address-bar" : "page";
+    const blankTheme = ["system", "dark", "light"].includes(next.blankTheme) ? next.blankTheme : DEFAULTS.blankTheme;
+    const customBackgroundColor = isHexColor(next.customBackgroundColor)
+      ? next.customBackgroundColor
+      : DEFAULTS.customBackgroundColor;
+
+    return {
+      targetUrl: normalizedUrl.ok ? normalizedUrl.url : DEFAULTS.targetUrl,
+      focusMode,
+      blankTheme,
+      customBackgroundEnabled: Boolean(next.customBackgroundEnabled),
+      customBackgroundColor,
+      syncEnabled: Boolean(next.syncEnabled)
+    };
   }
 
   function normalizeUrl(input) {
@@ -91,9 +116,18 @@
     }
   }
 
-  function applyBlankTheme(blankTheme) {
+  function applyBlankTheme(blankTheme, customBackgroundEnabled, customBackgroundColor) {
     const theme = blankTheme || DEFAULTS.blankTheme;
     document.documentElement.dataset.blankTheme = theme;
+
+    if (customBackgroundEnabled && isHexColor(customBackgroundColor)) {
+      document.documentElement.dataset.customBg = "true";
+      document.documentElement.style.setProperty("--custom-bg", customBackgroundColor);
+      return;
+    }
+
+    document.documentElement.dataset.customBg = "false";
+    document.documentElement.style.removeProperty("--custom-bg");
   }
 
   function storageArea(name) {
@@ -109,19 +143,19 @@
     const syncEnabled = Boolean(local.syncEnabled);
 
     if (!syncEnabled) {
-      return { ...DEFAULTS, ...local, syncEnabled };
+      return normalizeSettings({ ...DEFAULTS, ...local, syncEnabled });
     }
 
     try {
       const synced = await getFrom("sync");
-      return { ...DEFAULTS, ...local, ...synced, syncEnabled };
+      return normalizeSettings({ ...DEFAULTS, ...local, ...synced, syncEnabled });
     } catch (_error) {
-      return { ...DEFAULTS, ...local, syncEnabled: false };
+      return normalizeSettings({ ...DEFAULTS, ...local, syncEnabled: false });
     }
   }
 
   async function save(nextSettings) {
-    const normalized = { ...DEFAULTS, ...nextSettings };
+    const normalized = normalizeSettings(nextSettings);
     const localMirror = { ...normalized };
 
     await chrome.storage.local.set(localMirror);
@@ -141,6 +175,26 @@
     return { ...DEFAULTS };
   }
 
+  async function isFileAccessAllowed() {
+    if (!chrome.extension || !chrome.extension.isAllowedFileSchemeAccess) {
+      return false;
+    }
+
+    return new Promise((resolve) => {
+      chrome.extension.isAllowedFileSchemeAccess(resolve);
+    });
+  }
+
+  async function isIncognitoAccessAllowed() {
+    if (!chrome.extension || !chrome.extension.isAllowedIncognitoAccess) {
+      return false;
+    }
+
+    return new Promise((resolve) => {
+      chrome.extension.isAllowedIncognitoAccess(resolve);
+    });
+  }
+
   function extensionDetailsUrl() {
     return `chrome://extensions/?id=${chrome.runtime.id}`;
   }
@@ -150,10 +204,13 @@
     classifyUrl,
     applyBlankTheme,
     extensionDetailsUrl,
+    isFileAccessAllowed,
+    isIncognitoAccessAllowed,
+    isHexColor,
     load,
     normalizeUrl,
+    normalizeSettings,
     reset,
     save
   };
 })();
-
