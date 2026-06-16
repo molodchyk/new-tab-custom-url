@@ -56,6 +56,8 @@ StorePilot-ready files live under:
 
 - `store-listing/chrome-web-store/listing/en.md`
 - `store-listing/chrome-web-store/media/icon-128.png`
+- `store-listing/chrome-web-store/media/promo/small-promo.png`
+- `store-listing/chrome-web-store/media/promo/marquee-promo.png`
 - `docs/chrome-web-store-privacy-form.md`
 
 ## Privacy
