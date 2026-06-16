@@ -1,10 +1,3 @@
-Name
-New Tab: Custom URL
-
-Summary
-Set your new tab to any URL or local file. Tiny, private, no tracking.
-
-Detailed Description
 New Tab: Custom URL lets you choose what opens when you create a new tab.
 
 Use a website, local HTML file, browser page, or a quiet blank page. The extension is intentionally small and does not include analytics, ads, content scripts, search changes, background scripts, or broad site permissions.
