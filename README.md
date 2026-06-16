@@ -64,3 +64,10 @@ StorePilot-ready files live under:
 
 See [`PRIVACY.md`](PRIVACY.md). In short: no analytics, no ads, no remote
 network calls, and no data sale.
+
+## Support
+
+If this extension saves you time and you want to support its development:
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-support-FFDD00?logo=buymeacoffee&logoColor=000)](https://buymeacoffee.com/molodchyk)
+[![Patreon](https://img.shields.io/badge/Patreon-support-F96854?logo=patreon&logoColor=fff)](https://www.patreon.com/OMolodchyk)

@@ -1,6 +1,6 @@
 {
   "name": "new-tab-custom-url",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Chrome extension to set the new tab page to a custom URL or local file.",
   "scripts": {
