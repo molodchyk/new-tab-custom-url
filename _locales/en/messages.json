@@ -1,0 +1,192 @@
+{
+  "extensionName": {
+    "message": "New Tab: Custom URL",
+    "description": "Extension name shown in Chrome."
+  },
+  "extensionShortName": {
+    "message": "Custom New Tab",
+    "description": "Short extension name shown in narrow Chrome UI."
+  },
+  "extensionDescription": {
+    "message": "Set your new tab to a custom URL, local file, browser page, or quiet blank page.",
+    "description": "Chrome Web Store and extension details description."
+  },
+  "optionsPageTitle": {
+    "message": "New Tab: Custom URL Options",
+    "description": "Options page document title."
+  },
+  "optionsIntro": {
+    "message": "Set the page Chrome opens for new tabs.",
+    "description": "Options page intro text."
+  },
+  "newTabUrlLabel": {
+    "message": "New tab URL",
+    "description": "Label for the configured target URL field."
+  },
+  "targetUrlPlaceholder": {
+    "message": "https://example.com or file:///C:/page.html",
+    "description": "Options page URL input placeholder."
+  },
+  "popupTargetUrlPlaceholder": {
+    "message": "https://example.com",
+    "description": "Popup URL input placeholder."
+  },
+  "focusGroupLabel": {
+    "message": "After opening a new tab",
+    "description": "Label for focus mode options."
+  },
+  "focusAddressBar": {
+    "message": "Type in the address bar",
+    "description": "Focus mode option that keeps address bar workflow."
+  },
+  "focusLoadedPage": {
+    "message": "Type in the loaded page",
+    "description": "Focus mode option that lets the destination page receive focus."
+  },
+  "extensionThemeLabel": {
+    "message": "Extension theme",
+    "description": "Label for extension-owned page theme setting."
+  },
+  "themeSystem": {
+    "message": "System",
+    "description": "Theme option that follows browser or operating system color scheme."
+  },
+  "themeDark": {
+    "message": "Dark",
+    "description": "Dark theme option."
+  },
+  "themeLight": {
+    "message": "Light",
+    "description": "Light theme option."
+  },
+  "customBackgroundLabel": {
+    "message": "Use custom blank/redirect background",
+    "description": "Checkbox label for custom blank and redirect screen background."
+  },
+  "backgroundColorLabel": {
+    "message": "Background color",
+    "description": "Label for background color picker."
+  },
+  "syncSettingsLabel": {
+    "message": "Sync settings with Chrome profile",
+    "description": "Checkbox label for Chrome sync storage."
+  },
+  "browserAccessLabel": {
+    "message": "Browser Access",
+    "description": "Heading for browser-controlled access status."
+  },
+  "checkingFileAccess": {
+    "message": "Checking file access...",
+    "description": "Initial file access status."
+  },
+  "incognitoUnsupportedShort": {
+    "message": "Incognito new tabs are not supported...",
+    "description": "Initial incognito status."
+  },
+  "saveButton": {
+    "message": "Save",
+    "description": "Save button label."
+  },
+  "resetButton": {
+    "message": "Reset",
+    "description": "Reset button label."
+  },
+  "optionsButton": {
+    "message": "Options",
+    "description": "Options button label."
+  },
+  "openOptionsButton": {
+    "message": "Open Options",
+    "description": "Button label for opening the options page."
+  },
+  "extensionDetailsButton": {
+    "message": "Extension Details",
+    "description": "Button label for opening Chrome extension details."
+  },
+  "newTabStatusTitle": {
+    "message": "New Tab",
+    "description": "Fallback status panel title."
+  },
+  "readyToSave": {
+    "message": "Ready to save.",
+    "description": "Neutral URL validation message."
+  },
+  "saved": {
+    "message": "Saved.",
+    "description": "Save success message."
+  },
+  "resetToDefault": {
+    "message": "Reset to Chrome's default new tab page.",
+    "description": "Reset success message."
+  },
+  "couldNotLoadSettings": {
+    "message": "Could not load settings.",
+    "description": "Settings load error fallback."
+  },
+  "fileUrlsAllowed": {
+    "message": "File URLs: allowed",
+    "description": "File URL access status when enabled."
+  },
+  "fileUrlsOff": {
+    "message": "File URLs: off. Enable in Extension Details for local files.",
+    "description": "File URL access status when disabled."
+  },
+  "incognitoUnsupported": {
+    "message": "Incognito new tabs: not supported by Chrome for New Tab override extensions.",
+    "description": "Incognito limitation status."
+  },
+  "invalidUrlTitle": {
+    "message": "Invalid URL",
+    "description": "New-tab fallback title for invalid configured URLs."
+  },
+  "localFileAccessOffTitle": {
+    "message": "Local File Access Is Off",
+    "description": "New-tab fallback title when file access is disabled."
+  },
+  "localFileAccessOffBody": {
+    "message": "Enable Allow access to file URLs in this extension's Chrome details page, then open a new tab again.",
+    "description": "New-tab fallback body when file access is disabled."
+  },
+  "newTabErrorTitle": {
+    "message": "New Tab Error",
+    "description": "New-tab fallback title for unexpected errors."
+  },
+  "newTabErrorBody": {
+    "message": "The configured page could not be opened.",
+    "description": "New-tab fallback body for unexpected errors."
+  },
+  "convertedWindowsPath": {
+    "message": "Converted a Windows path to a file:// URL.",
+    "description": "URL normalization warning for Windows paths."
+  },
+  "convertedFileBackslashes": {
+    "message": "Converted backslashes to a file:// URL.",
+    "description": "URL normalization warning for file URLs with backslashes."
+  },
+  "addedHttps": {
+    "message": "Added https:// because no URL scheme was provided.",
+    "description": "URL normalization warning for bare domains."
+  },
+  "localFilesRequireToggle": {
+    "message": "Local files require Chrome's separate Allow access to file URLs toggle.",
+    "description": "URL normalization warning for local files."
+  },
+  "anotherExtensionBlocked": {
+    "message": "Chrome may block pages from another extension.",
+    "description": "URL normalization warning for chrome-extension URLs."
+  },
+  "schemeMayBeBlocked": {
+    "message": "The $SCHEME$ scheme may be blocked by the browser.",
+    "description": "URL normalization warning for uncommon schemes.",
+    "placeholders": {
+      "scheme": {
+        "content": "$1",
+        "example": "custom:"
+      }
+    }
+  },
+  "invalidUrlMessage": {
+    "message": "Enter a valid URL, local file path, browser page, or about:blank.",
+    "description": "URL validation error."
+  }
+}

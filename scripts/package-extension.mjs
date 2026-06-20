@@ -1,4 +1,4 @@
-import { mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, stat, unlink, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import process from "node:process";
@@ -8,7 +8,7 @@ const root = process.cwd();
 const manifest = JSON.parse(await readFile(path.join(root, "manifest.json"), "utf8"));
 const outDir = path.join(root, "dist");
 const zipPath = path.join(outDir, `new-tab-custom-url-${manifest.version}.zip`);
-const includeRoots = ["manifest.json", "src", "assets", "PRIVACY.md", "LICENSE"];
+const includeRoots = ["manifest.json", "_locales", "src", "assets", "PRIVACY.md", "LICENSE"];
 
 function dosTime(date) {
   const year = Math.max(date.getFullYear(), 1980);
@@ -31,6 +31,18 @@ async function collect(relativePath) {
   const entries = await readdir(absolutePath);
   const nested = await Promise.all(entries.map((entry) => collect(path.join(relativePath, entry))));
   return nested.flat();
+}
+
+async function removeStaleZipPackages() {
+  if (!existsSync(outDir)) return;
+
+  const currentZipName = path.basename(zipPath);
+  const entries = await readdir(outDir, { withFileTypes: true });
+  const staleZips = entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".zip") && entry.name !== currentZipName)
+    .map((entry) => path.join(outDir, entry.name));
+
+  await Promise.all(staleZips.map((staleZipPath) => unlink(staleZipPath)));
 }
 
 function localHeader(name, data, date) {
@@ -113,7 +125,7 @@ const output = Buffer.concat([
 ]);
 
 await mkdir(outDir, { recursive: true });
+await removeStaleZipPackages();
 await writeFile(zipPath, output);
 
 console.log(`Created ${path.relative(root, zipPath)} with ${entries.length} files.`);
-

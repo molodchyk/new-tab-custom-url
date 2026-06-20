@@ -34,7 +34,7 @@ page focus by default.
 
 Product requirement:
 
-- provide two explicit modes: page focus and address-bar workflow
+- provide two explicit modes: address-bar typing and loaded-page typing
 - avoid promising perfect address-bar selection because the browser controls
   parts of that behavior
 - document the limitation in support material and store copy
@@ -99,8 +99,9 @@ useful trust signal to match.
 
 Product requirement:
 
-- request only `storage`
-- do not request host permissions
+- request only `storage` and the narrow `file:///*` host permission needed for
+  Chrome's local-file access toggle
+- do not request website host permissions
 - do not inject content scripts
 - do not make remote calls
 - do not include analytics, ads, affiliate links, or popups
@@ -123,6 +124,12 @@ Product requirement:
 - prefer an internal blank page for `about:blank` so it can respect theme
 - consider a configurable intermediate-page background color if users still see
   a flash during redirect
+
+Extension UI decision:
+
+- apply the same dark, light, and system choices to extension-owned pages such
+  as options, popup, and fallback screens
+- do not imply the extension can restyle the user's configured destination page
 
 ### Performance and Size
 
@@ -207,8 +214,8 @@ Product requirement:
 
 - support Chrome first
 - avoid Chrome-only assumptions when possible
-- state that incognito requires the browser's "Allow in incognito" extension
-  setting
+- state that Chrome does not allow New Tab override extensions to replace
+  incognito new tabs
 - treat Edge, Brave, Vivaldi, and other Chromium browsers as compatibility
   targets, not guarantees
 

@@ -96,56 +96,11 @@ button.secondary {
   border-color: var(--border);
 }
 
-.newtab-body.blank {
-  background: var(--bg);
-}
-
-.status-panel {
-  width: min(520px, calc(100vw - 32px));
-  margin: 12vh auto 0;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--panel);
-  padding: 24px;
-  box-shadow: 0 18px 60px rgb(0 0 0 / 12%);
-}
-
-.status-panel h1,
-.options-shell h1 {
-  margin: 0;
-  font-size: 22px;
-  line-height: 1.2;
-}
-
-.status-panel p,
-.options-shell p {
-  color: var(--muted);
-}
-
-.status-actions,
-.button-row {
+.button-row,
+.status-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-}
-
-.options-body {
-  padding: 32px 16px;
-}
-
-.options-shell {
-  width: min(720px, 100%);
-  margin: 0 auto;
-}
-
-.settings-form {
-  display: grid;
-  gap: 18px;
-  margin-top: 24px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--panel);
-  padding: 22px;
 }
 
 .field {
@@ -172,34 +127,6 @@ select {
   background: var(--bg);
   color: var(--text);
   padding: 8px 10px;
-}
-
-input[type="color"] {
-  max-width: 88px;
-  padding: 4px;
-}
-
-.compact-field {
-  align-items: start;
-}
-
-.field-group {
-  display: grid;
-  gap: 10px;
-  border: 0;
-  padding: 0;
-}
-
-.choice {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--text);
-}
-
-.choice input {
-  width: 16px;
-  height: 16px;
 }
 
 .messages {
@@ -232,45 +159,4 @@ input[type="color"] {
 
 .messages p + p {
   margin-top: 6px;
-}
-
-.status-grid {
-  gap: 8px;
-}
-
-.status-line {
-  margin: 0;
-  border-left: 3px solid var(--border);
-  padding-left: 10px;
-  color: var(--muted);
-}
-
-.status-line[data-state="ok"] {
-  border-left-color: var(--accent);
-  color: var(--text);
-}
-
-.status-line[data-state="warn"] {
-  border-left-color: #d97706;
-}
-
-.popup-body {
-  width: 360px;
-  min-height: 260px;
-  padding: 14px;
-}
-
-.popup-shell {
-  display: grid;
-  gap: 14px;
-}
-
-.popup-shell h1 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.popup-form {
-  display: grid;
-  gap: 12px;
 }

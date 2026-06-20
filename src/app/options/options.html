@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" data-blank-theme="system">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title data-i18n-title="optionsPageTitle">New Tab: Custom URL Options</title>
+    <link rel="stylesheet" href="./options.css">
+  </head>
+  <body class="options-body">
+    <main class="options-shell">
+      <header>
+        <h1 data-i18n="extensionName">New Tab: Custom URL</h1>
+        <p data-i18n="optionsIntro">Set the page Chrome opens for new tabs.</p>
+      </header>
+
+      <form id="options-form" class="settings-form">
+        <label class="field">
+          <span data-i18n="newTabUrlLabel">New tab URL</span>
+          <input id="target-url" name="targetUrl" autocomplete="url" spellcheck="false" placeholder="https://example.com or file:///C:/page.html" data-i18n-placeholder="targetUrlPlaceholder">
+        </label>
+
+        <section class="field-group" aria-labelledby="focus-label">
+          <h2 id="focus-label" data-i18n="focusGroupLabel">After opening a new tab</h2>
+          <label class="choice">
+            <input type="radio" name="focusMode" value="address-bar">
+            <span data-i18n="focusAddressBar">Type in the address bar</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="focusMode" value="page">
+            <span data-i18n="focusLoadedPage">Type in the loaded page</span>
+          </label>
+        </section>
+
+        <label class="field">
+          <span data-i18n="extensionThemeLabel">Extension theme</span>
+          <select id="blank-theme" name="blankTheme">
+            <option value="system" data-i18n="themeSystem">System</option>
+            <option value="dark" data-i18n="themeDark">Dark</option>
+            <option value="light" data-i18n="themeLight">Light</option>
+          </select>
+        </label>
+
+        <label class="choice">
+          <input id="custom-background-enabled" type="checkbox" name="customBackgroundEnabled">
+          <span data-i18n="customBackgroundLabel">Use custom blank/redirect background</span>
+        </label>
+
+        <label class="field compact-field">
+          <span data-i18n="backgroundColorLabel">Background color</span>
+          <input id="custom-background-color" type="color" name="customBackgroundColor" value="#0d1117">
+        </label>
+
+        <label class="choice">
+          <input id="sync-enabled" type="checkbox" name="syncEnabled">
+          <span data-i18n="syncSettingsLabel">Sync settings with Chrome profile</span>
+        </label>
+
+        <section class="field-group status-grid" aria-labelledby="access-label">
+          <h2 id="access-label" data-i18n="browserAccessLabel">Browser Access</h2>
+          <p id="file-access-status" class="status-line" data-i18n="checkingFileAccess">Checking file access...</p>
+          <p id="incognito-access-status" class="status-line" data-i18n="incognitoUnsupportedShort">Incognito new tabs are not supported...</p>
+        </section>
+
+        <div id="messages" class="messages" aria-live="polite"></div>
+
+        <div class="button-row">
+          <button type="submit" data-i18n="saveButton">Save</button>
+          <button id="reset" type="button" class="secondary" data-i18n="resetButton">Reset</button>
+          <button id="details" type="button" class="secondary" data-i18n="extensionDetailsButton">Extension Details</button>
+        </div>
+      </form>
+    </main>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>

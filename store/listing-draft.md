@@ -16,15 +16,16 @@ Popular choices:
 1. https://google.com
 2. https://chat.openai.com
 3. https://www.bing.com
-4. about:blank
-5. file:///C:/Documents/start.html
+4. chrome://new-tab-page/
+5. about:blank
+6. file:///C:/Documents/start.html
 
 Features:
 
 Custom URL or local file
-Address-bar workflow mode
-Page-focus mode
-Dark, light, or system blank page
+Address-bar typing mode
+Loaded-page typing mode
+Dark, light, or system extension theme
 Custom blank/redirect background color
 Optional Chrome sync
 Toolbar popup for quick changes
@@ -34,6 +35,8 @@ No tracking
 Notes:
 
 Local files require Chrome's separate "Allow access to file URLs" toggle.
-Incognito use requires Chrome's separate "Allow in incognito" toggle.
+Chrome does not allow New Tab override extensions to replace incognito new tabs.
 Browser-controlled address-bar behavior can vary across Chrome and Chromium versions.
 
+Open source under the GPL-3.0 license:
+https://github.com/molodchyk/new-tab-custom-url

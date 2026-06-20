@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" data-blank-theme="system">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title data-i18n-title="extensionName">New Tab: Custom URL</title>
+    <link rel="stylesheet" href="./popup.css">
+  </head>
+  <body class="popup-body">
+    <main class="popup-shell">
+      <h1 data-i18n="extensionName">New Tab: Custom URL</h1>
+
+      <form id="popup-form" class="popup-form">
+        <label class="field">
+          <span data-i18n="newTabUrlLabel">New tab URL</span>
+          <input id="popup-target-url" autocomplete="url" spellcheck="false" placeholder="https://example.com" data-i18n-placeholder="popupTargetUrlPlaceholder">
+        </label>
+
+        <div id="popup-messages" class="messages" aria-live="polite"></div>
+
+        <div class="button-row">
+          <button type="submit" data-i18n="saveButton">Save</button>
+          <button id="popup-options" type="button" class="secondary" data-i18n="optionsButton">Options</button>
+          <button id="popup-reset" type="button" class="secondary" data-i18n="resetButton">Reset</button>
+        </div>
+      </form>
+    </main>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
